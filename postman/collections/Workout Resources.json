@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "0cd5c2f8-e517-4297-86ff-3af47fc65f08",
+		"name": "Workout Resources",
+		"description": "Endpoints Pertaining to 'Workout' Resources",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "20550773-0cd5c2f8-e517-4297-86ff-3af47fc65f08"
+	},
+	"item": [
+		{
+			"name": "Get All Workouts",
+			"id": "3852b054-fc0c-478b-bc01-d08792b0c5cc",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{localhost}}/workouts/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"workouts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Workout",
+			"id": "ddffff62-a5c5-4680-a7e7-9810c47d5858",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/workouts/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"workouts",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
