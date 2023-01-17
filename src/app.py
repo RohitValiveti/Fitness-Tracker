@@ -21,3 +21,8 @@ def success_response(data, code=200):
 
 def failure_response(msg, code):
     return json.dumps({"error": msg}), code
+
+# Endpoints
+
+
+
