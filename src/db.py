@@ -10,7 +10,7 @@ class Workout(db.Model):
     """
 
     __tablename__ = 'workout'
-    id = db.Column(db.Integer, primarykey=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     time_started = db.Column(db.DateTime, nullable=False)
     time_ended = db.Column(db.DateTime)
     muscle_group = db.Column(db.String, nullable=False)
@@ -27,8 +27,8 @@ class Workout(db.Model):
 
         return {
             "id": self.id,
-            "time_started": self.time_started,
-            "time_ended": self.time_ended,
+            "time_started": self.time_started.strftime("%m/%d/%Y, %H:%M:%S"),
+            "time_ended": self.time_ended.strftime("%m/%d/%Y, %H:%M:%S") if self.time_ended else None,
             "muscle_group": self.muscle_group,
             "exercises": [e.simple_serialize() for e in self.exercises]
         }
@@ -40,8 +40,8 @@ class Workout(db.Model):
 
         return {
             "id": self.id,
-            "time_started": self.time_started,
-            "time_ended": self.time_ended,
+            "time_started": self.time_started.strftime("%m/%d/%Y, %H:%M:%S"),
+            "time_ended": self.time_ended.strftime("%m/%d/%Y, %H:%M:%S") if self.time_ended else None,
             "muscle_group": self.muscle_group,
         }
 
@@ -52,7 +52,7 @@ class Exercise(db.Model):
     """
 
     __tablename__ = 'exercise'
-    id = db.Column(db.Integer, primarykey=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     exercise_name = db.Column(db.String, nullable=False)
     muscle = db.Column(db.String, nullable=False)
     workout_id = db.Column(db.Integer, db.ForeignKey(Workout.id))
@@ -91,7 +91,7 @@ class Set(db.Model):
     """
     ORM representing a Set Model.
     """
-    id = db.Column(db.Integer, primarykey=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     weight = db.Column(db.Integer, nullable=False)
     repetitions = db.Column(db.Integer, nullable=False)
     exercise_id = db.Column(db.Integer, db.ForeignKey(Exercise.id))
