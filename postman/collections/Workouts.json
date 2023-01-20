@@ -45,7 +45,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"muscle_group\": \"push\"\n}",
+					"raw": "{\n    \"muscle_group\": \"Pull\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,7 +88,7 @@
 					"variable": [
 						{
 							"key": "workout_id",
-							"value": null
+							"value": "1"
 						}
 					]
 				}
@@ -117,7 +117,7 @@
 					"variable": [
 						{
 							"key": "workout_id",
-							"value": null
+							"value": "2"
 						}
 					]
 				}
@@ -135,7 +135,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"muscle_group\": \"push\"\n}",
+					"raw": "{\n    \"muscle_group\": \"leg\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -143,19 +143,19 @@
 					}
 				},
 				"url": {
-					"raw": "{{localhost}}/workout/:workout_id/",
+					"raw": "{{localhost}}/workouts/:workout_id/",
 					"host": [
 						"{{localhost}}"
 					],
 					"path": [
-						"workout",
+						"workouts",
 						":workout_id",
 						""
 					],
 					"variable": [
 						{
 							"key": "workout_id",
-							"value": null
+							"value": "2"
 						}
 					]
 				}

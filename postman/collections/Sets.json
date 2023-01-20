@@ -134,11 +134,12 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{localhost}}/sets/:exercise_id/",
+					"raw": "{{localhost}}/assign/sets/:exercise_id/",
 					"host": [
 						"{{localhost}}"
 					],
 					"path": [
+						"assign",
 						"sets",
 						":exercise_id",
 						""

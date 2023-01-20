@@ -28,7 +28,7 @@
 					"variable": [
 						{
 							"key": "exercise_id",
-							"value": null
+							"value": "3"
 						}
 					]
 				}
@@ -46,7 +46,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"exercise_name\": \"squat\",\n\t\"muscle\": \"legs\"\n}",
+					"raw": "{\n\t\"exercise_name\": \"Lat Pull Down\",\n\t\"muscle\": \"lats\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -67,7 +67,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete Exercise for a Workout",
+			"name": "Delete Exercise",
 			"id": "02f5c376-0519-434c-a29b-6799356b8187",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -88,7 +88,7 @@
 					"variable": [
 						{
 							"key": "exercise_id",
-							"value": null
+							"value": "2"
 						}
 					]
 				}
@@ -106,7 +106,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"exercise_name\": \"squat\",\n\t\"muscle\": \"legs\"\n}",
+					"raw": "{\n\t\"exercise_name\": \"leg extension\",\n\t\"muscle\": \"quads\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -126,7 +126,7 @@
 					"variable": [
 						{
 							"key": "exercise_id",
-							"value": null
+							"value": "3"
 						}
 					]
 				}
@@ -144,7 +144,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"exercise_name\": \"squat\",\n\t\"muscle\": \"legs\"\n}",
+					"raw": "{\n\t\"exercise_name\": \"Bench Press\",\n\t\"muscle\": \"Chest\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -152,11 +152,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{localhost}}/exercises/:workout_id/",
+					"raw": "{{localhost}}/assign/exercises/:workout_id/",
 					"host": [
 						"{{localhost}}"
 					],
 					"path": [
+						"assign",
 						"exercises",
 						":workout_id",
 						""
@@ -164,8 +165,30 @@
 					"variable": [
 						{
 							"key": "workout_id",
-							"value": null
+							"value": "2"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Exercises",
+			"id": "143c60a9-57ae-464d-995c-6dc35672849f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/exercises/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"exercises",
+						""
 					]
 				}
 			},
