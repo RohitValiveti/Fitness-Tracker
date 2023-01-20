@@ -46,8 +46,8 @@ class Workout(db.Model):
 
         return {
             "id": self.id,
-            "time_started": self.time_started.strftime("%m/%d/%Y, %H:%M:%S"),
-            "time_ended": self.time_ended.strftime("%m/%d/%Y, %H:%M:%S") if self.time_ended else None,
+            "time_started": str(self.time_started),
+            "time_ended": str(self.time_ended) if self.time_ended else None,
             "muscle_group": self.muscle_group,
             "exercises": [e.simple_serialize() for e in self.exercises]
         }
@@ -59,8 +59,8 @@ class Workout(db.Model):
 
         return {
             "id": self.id,
-            "time_started": self.time_started.strftime("%m/%d/%Y, %H:%M:%S"),
-            "time_ended": self.time_ended.strftime("%m/%d/%Y, %H:%M:%S") if self.time_ended else None,
+            "time_started": str(self.time_started),
+            "time_ended": str(self.time_ended) if self.time_ended else None,
             "muscle_group": self.muscle_group,
         }
 
