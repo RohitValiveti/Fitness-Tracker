@@ -58,9 +58,9 @@ class Exercise(db.Model):
     workout_id = db.Column(db.Integer, db.ForeignKey(Workout.id))
     sets = db.relationship('Set', cascade='delete')
 
-    def __init__(self, movement, muscle, workout_id) -> None:
+    def __init__(self, exercise_name, muscle, workout_id=None) -> None:
         self.muscle = muscle
-        self.movement = movement
+        self.exercise_name = exercise_name
         self.workout_id = workout_id
 
     def serialize(self):
@@ -96,7 +96,7 @@ class Set(db.Model):
     repetitions = db.Column(db.Integer, nullable=False)
     exercise_id = db.Column(db.Integer, db.ForeignKey(Exercise.id))
 
-    def __init__(self, weight, repetitions, exercise_id) -> None:
+    def __init__(self, weight, repetitions, exercise_id=None) -> None:
         self.weight = weight
         self.repetitions = repetitions
         self.exercise_id = exercise_id
