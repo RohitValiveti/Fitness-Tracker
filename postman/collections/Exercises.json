@@ -106,7 +106,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"exercise_name\": \"leg extension\",\n\t\"muscle\": \"quads\"\n}",
+					"raw": "{\n\t\"exercise_name\": \"leg extension\",\n\t\"muscle\": \"quads\",\n    \"workout_id\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"

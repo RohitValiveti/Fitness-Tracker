@@ -17,7 +17,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"weight\": 135,\n\t\"reps\": 10\n}\n",
+					"raw": "{\n\t\"weight\": 135,\n\t\"reps\": 10,\n    \"exercise_id\": 2\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -37,7 +37,7 @@
 					"variable": [
 						{
 							"key": "set_id",
-							"value": null
+							"value": "1"
 						}
 					]
 				}
