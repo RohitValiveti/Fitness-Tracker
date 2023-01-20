@@ -4,6 +4,25 @@ from datetime import datetime
 db = SQLAlchemy()
 
 
+class User(db.Model):
+    """
+    ORM representing a User Model.
+    """
+
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String, nullable=False, unique=True)
+    # pwd
+    # session_token
+    # update_token
+    # session_expiration
+    # workouts
+    # friends
+
+    def __init__(self) -> None:
+        pass
+
+
 class Workout(db.Model):
     """
     ORM representing a Workout Model.
