@@ -92,6 +92,14 @@ def exercise(exercise_id):
         exercise.exercise_name = body.get(
             'exercise_name', exercise.exercise_name)
         exercise.muscle = body.get('muscle', exercise.muscle)
+
+        workout_id = body.get('workout_id')
+        if workout_id is not None:
+            workout = Workout.query.filter_by(id=workout_id).first()
+            if workout is None:
+                return failure_response('Workout does not exist', 400)
+            exercise.workout_id = workout_id
+
         db.session.commit()
         return success_response(exercise.serialize())
     elif request.method == 'DELETE':
@@ -171,6 +179,13 @@ def delete_set(set_id):
         body = json.loads(request.data)
         set.weight = body.get('weight', set.weight)
         set.repetitions = body.get('reps', set.repetitions)
+
+        exercise_id = body.get('exercise_id')
+        if exercise_id is not None:
+            exercise = Exercise.query.filter_by(id=exercise_id).first()
+            if exercise is None:
+                return failure_response("Exercise does not exist.", 400)
+            set.exercise_id = exercise_id
         db.session.commit()
         return success_response(set.serialize())
     elif request.method == 'DELETE':
@@ -221,8 +236,6 @@ def create_assigned_set(exercise_id):
     db.session.commit()
 
     return success_response(set.serialize(), 201)
-
-# Assigning
 
 
 if __name__ == "__main__":
