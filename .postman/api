@@ -5,11 +5,16 @@ id = ae62d141-e5c3-4393-815e-c9f6c5fea9fa
 
 [relations.collections]
 rootDirectory = postman/collections
-files[] = {"id":"20550773-0cd5c2f8-e517-4297-86ff-3af47fc65f08","path":"Workout Resources.json","metaData":{}}
+files[] = {"id":"20550773-1f87af34-36eb-43b7-9bf0-7902b1cd04d9","path":"Exercises.json","metaData":{}}
+files[] = {"id":"20550773-a45e23cf-f475-4ada-93c5-bfbd7608b6c1","path":"Sets.json","metaData":{}}
+files[] = {"id":"20550773-0cd5c2f8-e517-4297-86ff-3af47fc65f08","path":"Workouts.json","metaData":{}}
 
 [relations.collections.metaData]
 
 [relations.apiDefinition]
 rootDirectory = postman/schemas
+files[] = {"path":"index.json","metaData":{}}
 
 [relations.apiDefinition.metaData]
+rootFiles[] = index.json
+type = openapi:3

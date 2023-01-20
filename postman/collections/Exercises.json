@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "1f87af34-36eb-43b7-9bf0-7902b1cd04d9",
+		"name": "Exercises",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "20550773-1f87af34-36eb-43b7-9bf0-7902b1cd04d9"
+	},
+	"item": [
+		{
+			"name": "Get Exercise",
+			"id": "eebee856-586e-4acb-9e47-f8e6f0660d6a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/exercises/:exercise_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"exercises",
+						":exercise_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "exercise_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Exercise w/o workout",
+			"id": "a3bed8b3-5754-47bf-b48b-0ed5b78b50d8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"exercise_name\": \"squat\",\n\t\"muscle\": \"legs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/exercises/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"exercises",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Exercise for a Workout",
+			"id": "02f5c376-0519-434c-a29b-6799356b8187",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/exercises/:exercise_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"exercises",
+						":exercise_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "exercise_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Exercise",
+			"id": "a8436636-654f-4dd0-9279-1aabfaa66e6d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"exercise_name\": \"squat\",\n\t\"muscle\": \"legs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/exercises/:exercise_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"exercises",
+						":exercise_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "exercise_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Exercise for workout",
+			"id": "1d8f1060-55be-44a1-841c-1904b4d81b95",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"exercise_name\": \"squat\",\n\t\"muscle\": \"legs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/exercises/:workout_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"exercises",
+						":workout_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "workout_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

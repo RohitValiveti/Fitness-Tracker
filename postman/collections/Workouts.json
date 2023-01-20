@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "0cd5c2f8-e517-4297-86ff-3af47fc65f08",
+		"name": "Workouts",
+		"description": "Endpoints Pertaining to 'Workout' Resources",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "20550773-0cd5c2f8-e517-4297-86ff-3af47fc65f08"
+	},
+	"item": [
+		{
+			"name": "Get All Workouts",
+			"id": "3852b054-fc0c-478b-bc01-d08792b0c5cc",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{localhost}}/workouts/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"workouts",
+						""
+					]
+				},
+				"description": "Retrieves All Workouts"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Workout",
+			"id": "ddffff62-a5c5-4680-a7e7-9810c47d5858",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"muscle_group\": \"push\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/workouts/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"workouts",
+						""
+					]
+				},
+				"description": "Create new workout"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Workout",
+			"id": "ae4ff2ac-b8ad-4835-9af1-ad62501f73cd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/workouts/:workout_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"workouts",
+						":workout_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "workout_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Workout",
+			"id": "143100db-d4ba-4816-b199-2807349b7123",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/workouts/:workout_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"workouts",
+						":workout_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "workout_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Workout",
+			"id": "de17ac4e-2206-4726-917f-3a0de083036b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"muscle_group\": \"push\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/workout/:workout_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"workout",
+						":workout_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "workout_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

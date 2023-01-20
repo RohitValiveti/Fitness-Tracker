@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "a45e23cf-f475-4ada-93c5-bfbd7608b6c1",
+		"name": "Sets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "20550773-a45e23cf-f475-4ada-93c5-bfbd7608b6c1"
+	},
+	"item": [
+		{
+			"name": "Update Set",
+			"id": "c34f462f-c07f-4685-a44e-a5c9809a8a41",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"weight\": 135,\n\t\"reps\": 10\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/sets/:set_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"sets",
+						":set_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "set_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Set",
+			"id": "1e09edb2-9ecc-4e02-93cc-80f325183b4e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/sets/:set_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"sets",
+						":set_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "set_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Set",
+			"id": "40a81a6d-9025-4a73-b43e-da99f18f1bf7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/sets/:set_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"sets",
+						":set_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "set_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Set w/o Exercise",
+			"id": "1b43cf39-2e3e-4047-b1f6-3dda3d30622c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/sets/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"sets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Set for Exercise",
+			"id": "705a756f-26c6-4533-93f9-19335b7af62b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/sets/:exercise_id/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"sets",
+						":exercise_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "exercise_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
