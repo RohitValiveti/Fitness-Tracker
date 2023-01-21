@@ -1,2 +1,4 @@
-.venv
+venv
+*.db
+instance
 __pycache__
