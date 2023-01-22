@@ -22,7 +22,34 @@ def success_response(data, code=200):
 def failure_response(msg, code):
     return json.dumps({"error": msg}), code
 
+
+def extract_token(request):
+    """
+    Helper function that extracts the token from the header of a request
+    """
+    auth_header = request.headers.get("Authorization")
+    if auth_header is None:
+        return False, failure_response("Missing Authorization header", 400)
+
+    # Header formats as "Authorization": Bearer <Token>
+    bearer_token = auth_header.replace("Bearer ", "").strip()
+    if bearer_token is None or not bearer_token:
+        return False, failure_response("Invalid authorization header", 400)
+
+    return True, bearer_token
+
 # ENDPOINTS
+
+# Admin
+
+
+@app.route('/admin/delete/')
+def delete_tables():
+    Workout.__table__.drop(db.engine)
+    Exercise.__table__.drop(db.engine)
+    Set.__table__.drop(db.engine)
+    db.create_all()
+    return success_response({"message": "deleted all tables."})
 
 # Workouts
 
@@ -236,6 +263,41 @@ def create_assigned_set(exercise_id):
     db.session.commit()
 
     return success_response(set.serialize(), 201)
+
+# Users
+
+
+@app.route("/register/", methods=["POST"])
+def register():
+    """
+    Register User with given email and password in body.
+    """
+    pass
+
+
+@app.route("/login/", methods=["POST"])
+def login():
+    """
+    Log user in with given email and password in body.
+    Returns session token, expiration, and update token.
+    """
+    pass
+
+
+@app.route("/logout/", methods=["POST"])
+def logout():
+    """
+    Log user out.
+    """
+    pass
+
+
+@app.route("/session/", methods=["POST"])
+def update_session():
+    """
+    Update user session. Return session token, expiration, and update token.
+    """
+    pass
 
 
 if __name__ == "__main__":
