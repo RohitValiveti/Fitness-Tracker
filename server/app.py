@@ -1,6 +1,8 @@
 import json
+import datetime
 from flask import Flask, request
-from db import db, Workout, Exercise, Set
+from db import db, User, Workout, Exercise, Set
+import users_dao
 
 app = Flask(__name__)
 
@@ -29,12 +31,12 @@ def extract_token(request):
     """
     auth_header = request.headers.get("Authorization")
     if auth_header is None:
-        return False, failure_response("Missing Authorization header", 400)
+        return False, "Missing Authorization header"
 
     # Header formats as "Authorization": Bearer <Token>
     bearer_token = auth_header.replace("Bearer ", "").strip()
     if bearer_token is None or not bearer_token:
-        return False, failure_response("Invalid authorization header", 400)
+        return False, "Invalid authorization header"
 
     return True, bearer_token
 
@@ -45,11 +47,21 @@ def extract_token(request):
 
 @app.route('/admin/delete/')
 def delete_tables():
+    """
+    Reset all table content to empty.
+    """
     Workout.__table__.drop(db.engine)
     Exercise.__table__.drop(db.engine)
     Set.__table__.drop(db.engine)
     db.create_all()
     return success_response({"message": "deleted all tables."})
+
+
+@app.route('/admin/users/')
+def get_users():
+    """
+    Return all registered users. 
+    """
 
 # Workouts
 
@@ -264,7 +276,7 @@ def create_assigned_set(exercise_id):
 
     return success_response(set.serialize(), 201)
 
-# Users
+# User Management
 
 
 @app.route("/register/", methods=["POST"])
@@ -272,7 +284,24 @@ def register():
     """
     Register User with given email and password in body.
     """
-    pass
+    body = json.loads(request.data)
+
+    email = body.get('email')
+    password = body.get('password')
+
+    if email is None or password is None:
+        return failure_response('Did not supply email and/or password.', 400)
+
+    success, user = users_dao.create_user(email, password)
+
+    if not success:
+        return failure_response('This email is already associated with a created account.', 400)
+
+    return success_response({
+        "session_token": user.session_token,
+        "session_expiration": str(user.session_expiration),
+        "update_token": user.update_token
+    }, 201)
 
 
 @app.route("/login/", methods=["POST"])
@@ -281,7 +310,26 @@ def login():
     Log user in with given email and password in body.
     Returns session token, expiration, and update token.
     """
-    pass
+    body = json.loads(request.data)
+
+    email = body.get('email')
+    password = body.get('password')
+
+    if email is None or password is None:
+        return failure_response('Did not supply email and/or password.')
+
+    success, user = users_dao.verify_credentials(email, password)
+    if user is None:
+        return failure_response('Email is not assocated with account', 400)
+
+    if not success:
+        return failure_response('password not correct for enteredt email.', 400)
+
+    return success_response({
+        "session_token": user.session_token,
+        "session_expiration": str(user.session_expiration),
+        "update_token": user.update_token
+    })
 
 
 @app.route("/logout/", methods=["POST"])
@@ -289,7 +337,21 @@ def logout():
     """
     Log user out.
     """
-    pass
+    success, response = extract_token(request)
+    if not success:
+        return failure_response(response, 400)
+
+    user = users_dao.get_user_by_session_token(response)
+
+    if user is None or not user.verify_session_token(response):
+        return failure_response('Invalid session token.')
+
+    user.session_token = ''
+    user.session_expiration = datetime.now()
+    user.update_token = ''
+    db.session.commit()
+
+    return success_response({'message': 'you have been logged out'})
 
 
 @app.route("/session/", methods=["POST"])
@@ -297,7 +359,32 @@ def update_session():
     """
     Update user session. Return session token, expiration, and update token.
     """
-    pass
+    success, response = extract_token(request)
+
+    if not success:
+        return failure_response(response, 400)
+
+    renew_success, user = users_dao.renew_session(response)
+
+    if not renew_success:
+        return failure_response('No user associated with update token.', 400)
+
+    return success_response({
+        "session_token": user.session_token,
+        "session_expiration": str(user.session_expiration),
+        "update_token": user.update_token
+    })
+
+
+# Users
+
+
+@app.route('users/<int:user_id>/')
+def get_user(user_id):
+    """
+    Get user with specified id.
+    The user requested must be logged in (have proper session token).
+    """
 
 
 if __name__ == "__main__":
