@@ -72,6 +72,28 @@ class User(db.Model):
         """
         return update_token == update_token
 
+    def simple_serialize(self):
+        """
+        Returns simple serialized model of user.
+        """
+
+        return {
+            'id': self.id,
+            'email': self.email
+        }
+
+    def serialize(self):
+        """
+        Returns serialized model of user.
+        """
+
+        return {
+            'id': self.id,
+            'email': self.email,
+            'workouts': [w.simple_serialize() for w in self.workouts],
+            'friends': [f.simple_serialize() for f in self.friends]
+        }
+
 
 class Workout(db.Model):
     """

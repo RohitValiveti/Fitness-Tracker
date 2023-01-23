@@ -62,6 +62,8 @@ def get_users():
     """
     Return all registered users. 
     """
+    users = [u.simple_serialize() for u in User.query.all()]
+    return success_response({'users': users})
 
 # Workouts
 
@@ -366,8 +368,8 @@ def update_session():
 
     renew_success, user = users_dao.renew_session(response)
 
-    if not renew_success:
-        return failure_response('No user associated with update token.', 400)
+    if not renew_success or not user.verify_update_token(response):
+        return failure_response('Invalid update token.', 400)
 
     return success_response({
         "session_token": user.session_token,
@@ -385,6 +387,16 @@ def get_user(user_id):
     Get user with specified id.
     The user requested must be logged in (have proper session token).
     """
+    success, token = extract_token(request)
+
+    if not success:
+        return failure_response('Could not extract token.', 400)
+
+    user = users_dao.get_user_by_session_token(token)
+    if user is None or not user.verify_session_token(token):
+        return failure_response('Invalid session token.', 400)
+
+    return success_response(user.serialize())
 
 
 if __name__ == "__main__":
