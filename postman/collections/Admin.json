@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "fa86fa4a-76f8-4755-987e-f73779f0ac3c",
+		"name": "Admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "20550773-fa86fa4a-76f8-4755-987e-f73779f0ac3c"
+	},
+	"item": [
+		{
+			"name": "Delete All tables",
+			"id": "53e329a8-d0bf-499b-967e-7bcd1699252e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/admin/delete/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"admin",
+						"delete",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users",
+			"id": "0405467f-08ea-4601-84ac-39d3ea593432",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/admin/users/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"admin",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

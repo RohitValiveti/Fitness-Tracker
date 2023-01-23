@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "2783f0b1-28f1-4cb9-8a0f-648445510455",
+		"name": "User Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "20550773-2783f0b1-28f1-4cb9-8a0f-648445510455"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"id": "48b7039e-7d41-4a2b-8751-e3672f898d55",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"jj4@cornell.edu\",\n    \"password\": \"jspwd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/register/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"id": "69b29ca8-b383-410e-a1cc-72bfd7f35065",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"rvv6@cornell.edu\",\n    \"password\": \"pwd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/login/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"id": "a584a106-4493-42b3-9f37-bb1a6c09f009",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 605d5d40bf4a35acfd25b1ed6dca495e73897605",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{localhost}}/logout/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Renew Session",
+			"id": "26b8947b-ad2e-42c8-ac32-ffcb31c50616",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{localhost}}/session/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"session",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

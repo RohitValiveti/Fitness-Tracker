@@ -5,16 +5,19 @@ id = ae62d141-e5c3-4393-815e-c9f6c5fea9fa
 
 [relations.collections]
 rootDirectory = postman/collections
+files[] = {"id":"20550773-fa86fa4a-76f8-4755-987e-f73779f0ac3c","path":"Admin.json","metaData":{}}
 files[] = {"id":"20550773-1f87af34-36eb-43b7-9bf0-7902b1cd04d9","path":"Exercises.json","metaData":{}}
 files[] = {"id":"20550773-a45e23cf-f475-4ada-93c5-bfbd7608b6c1","path":"Sets.json","metaData":{}}
+files[] = {"id":"20550773-2783f0b1-28f1-4cb9-8a0f-648445510455","path":"User Management.json","metaData":{}}
+files[] = {"id":"20550773-3734da70-2526-4ff3-930b-df37861a40e8","path":"Users.json","metaData":{}}
 files[] = {"id":"20550773-0cd5c2f8-e517-4297-86ff-3af47fc65f08","path":"Workouts.json","metaData":{}}
 
 [relations.collections.metaData]
 
 [relations.apiDefinition]
 rootDirectory = postman/schemas
-files[] = {"path":"index.json","metaData":{}}
+files[] = {"path":"index.yaml","metaData":{}}
 
 [relations.apiDefinition.metaData]
-rootFiles[] = index.json
+rootFiles[] = index.yaml
 type = openapi:3
