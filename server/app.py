@@ -325,7 +325,11 @@ def login():
         return failure_response('Email is not assocated with account', 400)
 
     if not success:
-        return failure_response('password not correct for enteredt email.', 400)
+        return failure_response('password not correct for entered email.', 400)
+
+    if user.session_token == "":
+        user.renew_session()
+        db.session.commit()
 
     return success_response({
         "session_token": user.session_token,
@@ -346,10 +350,10 @@ def logout():
     user = users_dao.get_user_by_session_token(response)
 
     if user is None or not user.verify_session_token(response):
-        return failure_response('Invalid session token.')
+        return failure_response('Invalid session token.', 400)
 
     user.session_token = ''
-    user.session_expiration = datetime.now()
+    user.session_expiration = datetime.datetime.now()
     user.update_token = ''
     db.session.commit()
 
@@ -381,7 +385,7 @@ def update_session():
 # Users
 
 
-@app.route('users/<int:user_id>/')
+@app.route('/users/<int:user_id>/')
 def get_user(user_id):
     """
     Get user with specified id.

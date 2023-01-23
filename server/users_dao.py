@@ -8,21 +8,21 @@ def get_user_by_email(email):
     """
     Returns a user object from the database given an email
     """
-    return User.query.find_by(User.email == email).first()
+    return User.query.filter(User.email == email).first()
 
 
 def get_user_by_session_token(session_token):
     """
     Returns a user object from the database given a session token
     """
-    return User.query.find_by(User.session_token == session_token).first()
+    return User.query.filter(User.session_token == session_token).first()
 
 
 def get_user_by_update_token(update_token):
     """
     Returns a user object from the database given an update token
     """
-    return User.query.find_by(User.update_token == update_token).first()
+    return User.query.filter(User.update_token == update_token).first()
 
 
 def verify_credentials(email, password):
@@ -45,7 +45,7 @@ def create_user(email, password):
 
     Returns if creation was successful, and the User object
     """
-    user = User.query.filter_by(email=email).first()
+    user = get_user_by_email(email)
     if user is not None:
         return False, user
 

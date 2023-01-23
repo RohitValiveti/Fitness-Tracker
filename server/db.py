@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timedelta
 import bcrypt
 import os
 import hashlib
@@ -28,8 +28,9 @@ class User(db.Model):
     update_token = db.Column(db.String, nullable=False, unique=True)
     session_expiration = db.Column(db.DateTime, nullable=False)
     workouts = db.relationship('Workout', cascade='delete')
-    friends = db.relationship(
-        'User', secondary=friends_table, back_populates='friends')
+    # friends = db.relationship(
+    #     'User', secondary=friends_table, primaryjoin=(friends_table.c.user_id == id),
+    #     secondaryjoin=(friends_table.c.friend_id == id), back_populates='friends')
 
     def __init__(self, email, password_raw) -> None:
         self.email = email
@@ -51,7 +52,7 @@ class User(db.Model):
         3. Creates a new update token
         """
         self.session_token = self._urlsafe_base_64()
-        self.session_expiration = datetime.now() + datetime.timedelta(days=1)
+        self.session_expiration = datetime.now() + timedelta(days=1)
         self.update_token = self._urlsafe_base_64()
 
     def verify_password(self, password):
@@ -91,7 +92,7 @@ class User(db.Model):
             'id': self.id,
             'email': self.email,
             'workouts': [w.simple_serialize() for w in self.workouts],
-            'friends': [f.simple_serialize() for f in self.friends]
+            # 'friends': [f.simple_serialize() for f in self.friends]
         }
 
 
