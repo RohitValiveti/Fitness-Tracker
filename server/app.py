@@ -1,8 +1,11 @@
 import json
+import os
 import datetime
 from flask import Flask, request
-from db import db, User, Workout, Exercise, Set
+from db import db, User, Workout, Exercise, Set, Health_File
 import users_dao
+import boto3
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -23,6 +26,23 @@ def success_response(data, code=200):
 
 def failure_response(msg, code):
     return json.dumps({"error": msg}), code
+
+
+def authenticate(request):
+    """
+    Authenticates a user via their session token.
+    Returns False if unable to authenticate.
+    """
+    success, token = extract_token(request)
+
+    if not success:
+        return failure_response('Could not extract token.', 400)
+
+    user = users_dao.get_user_by_session_token(token)
+    if user is None or not user.verify_session_token(token):
+        return failure_response('Invalid session token.', 400)
+
+    return
 
 
 def extract_token(request):
@@ -401,6 +421,97 @@ def get_user(user_id):
         return failure_response('Invalid session token.', 400)
 
     return success_response(user.serialize())
+
+
+@app.route('/users/friend/<int:friend_id>/', methods=['POST'])
+def friend_user(friend_id):
+    """
+    Friend users together
+    """
+
+    success, token = extract_token(request)
+
+    if not success:
+        return failure_response('Could not extract token.', 400)
+
+    user = users_dao.get_user_by_session_token(token)
+    if user is None or not user.verify_session_token(token):
+        return failure_response('Invalid session token.', 400)
+
+    friend = User.query.filter_by(id=friend_id).first()
+
+    if friend is None:
+        return failure_response('user with this id does not exist', 400)
+
+    user.friends.append(friend)
+    db.session.commit()
+
+    return success_response(friend.simple_serialize())
+
+
+@app.route('/users/files/', methods=['GET', 'POST'])
+def files():
+    """
+    Gets all files of user or uploads files for a user.
+    """
+    success, token = extract_token(request)
+
+    if not success:
+        return failure_response('Could not extract token.', 400)
+
+    user = users_dao.get_user_by_session_token(token)
+    if user is None or not user.verify_session_token(token):
+        return failure_response('Invalid session token.', 400)
+
+    if request.method == 'GET':
+        files = [f.basic_serialize() for f in user.health_files]
+        return success_response({'health_files': files})
+    elif request.method == 'POST':
+        name = request.form.get("name")
+        file = request.files.get("content")
+        user_id = user.id
+        if name is None or file is None:
+            return failure_response('Did not supply data.', 400)
+
+        s3 = boto3.resource("s3")
+        bucket = s3.Bucket("rv-fitness-tracker")
+        filename = secure_filename(file.filename)
+        bucket.put_object(Key=filename, Body=file)
+        s3_client = boto3.client("s3")
+        url = s3_client.generate_presigned_url(
+            "get_object", Params={"Bucket": "rv-fitness-tracker", "Key": filename}, ExpiresIn=300
+        )
+
+        health_file = Health_File(name, url, user_id)
+        db.session.add(health_file)
+        db.session.commit()
+        return success_response(health_file.serialize(), 201)
+
+
+@app.route('/users/files/<int:file_id>/')
+def get_file(file_id):
+    """
+    Gets specified file of a user.
+    """
+
+    success, token = extract_token(request)
+
+    if not success:
+        return failure_response('Could not extract token.', 400)
+
+    user = users_dao.get_user_by_session_token(token)
+    if user is None or not user.verify_session_token(token):
+        return failure_response('Invalid session token.', 400)
+
+    file = Health_File.query.filter_by(id=file_id).first()
+
+    if file is None:
+        return failure_response('File does not exist.', 400)
+
+    if file.user_id != user.id:
+        return failure_response('Denied Access.', 400)
+
+    return success_response(file.simple_serialize())
 
 
 if __name__ == "__main__":

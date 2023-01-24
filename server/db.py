@@ -28,9 +28,10 @@ class User(db.Model):
     update_token = db.Column(db.String, nullable=False, unique=True)
     session_expiration = db.Column(db.DateTime, nullable=False)
     workouts = db.relationship('Workout', cascade='delete')
-    # friends = db.relationship(
-    #     'User', secondary=friends_table, primaryjoin=(friends_table.c.user_id == id),
-    #     secondaryjoin=(friends_table.c.friend_id == id), back_populates='friends')
+    friends = db.relationship(
+        'User', secondary=friends_table, primaryjoin=(friends_table.c.user_id == id),
+        secondaryjoin=(friends_table.c.friend_id == id), back_populates='friends')
+    health_files = db.relationship('Health_File', cascade='delete')
 
     def __init__(self, email, password_raw) -> None:
         self.email = email
@@ -92,7 +93,7 @@ class User(db.Model):
             'id': self.id,
             'email': self.email,
             'workouts': [w.simple_serialize() for w in self.workouts],
-            # 'friends': [f.simple_serialize() for f in self.friends]
+            'friends': [f.simple_serialize() for f in self.friends]
         }
 
 
@@ -205,4 +206,45 @@ class Set(db.Model):
             "weight": self.weight,
             "repetitions": self.repetitions,
             "exercise_id": self.exercise_id
+        }
+
+
+class Health_File(db.Model):
+    """
+    ORM representing a Health File Model.
+    """
+
+    __tablename__ = 'health_file'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String, nullable=False)
+    content = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id))
+
+    def __init__(self, name, content, user_id) -> None:
+        """
+        Initializes Health file Object.
+        """
+        self.name = name
+        self.content = content
+        self.user_id = user_id
+
+    def basic_serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name
+        }
+
+    def simple_serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "link": self.content
+        }
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "link": self.content,
+            "user_id": self.user_id
         }
