@@ -6,6 +6,8 @@ from db import db, User, Workout, Exercise, Set, Health_File
 import users_dao
 import boto3
 from werkzeug.utils import secure_filename
+import sendgrid
+from sendgrid.helpers.mail import *
 
 app = Flask(__name__)
 
@@ -445,6 +447,18 @@ def friend_user(friend_id):
 
     user.friends.append(friend)
     db.session.commit()
+
+    # Email friended user that this user has friended them
+    sg = sendgrid.SendGridAPIClient(
+        api_key=os.environ.get("SENDGRID_API_KEY")
+    )
+    from_email = Email(user.email)
+    to_email = To(friend.email)
+    subject = 'Friend Request'
+    content = Content("text/plain", "User with email" +
+                      user.email + "has added you as a friend.")
+    mail = Mail(from_email, to_email, subject, content)
+    sg.client.mail.send.post(request_body=mail.get())
 
     return success_response(friend.simple_serialize())
 
