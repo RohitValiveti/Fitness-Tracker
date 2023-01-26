@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 import sendgrid
 from sendgrid.helpers.mail import *
 
+
 app = Flask(__name__)
 
 db_filename = "excercises.db"
@@ -452,11 +453,11 @@ def friend_user(friend_id):
     sg = sendgrid.SendGridAPIClient(
         api_key=os.environ.get("SENDGRID_API_KEY")
     )
-    from_email = Email(user.email)
+    from_email = Email('rohit.valiveti@gmail.com')
     to_email = To(friend.email)
     subject = 'Friend Request'
-    content = Content("text/plain", "User with email" +
-                      user.email + "has added you as a friend.")
+    content = Content("text/plain", "User with email '" +
+                      user.email + "' has added you as a friend!")
     mail = Mail(from_email, to_email, subject, content)
     sg.client.mail.send.post(request_body=mail.get())
 
