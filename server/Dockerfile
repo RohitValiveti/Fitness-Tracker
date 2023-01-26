@@ -1,4 +1,4 @@
-ROM python:3.9.12
+FROM python:3.9.12
 
 RUN mkdir server
 WORKDIR server
