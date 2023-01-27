@@ -2,6 +2,6 @@ venv
 *.db
 instance
 __pycache__
-.postman
+/.postman
 .env
 .vscode
