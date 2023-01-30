@@ -16,7 +16,7 @@ export type Exercise = {
 };
 
 export type Set = {
-  Ii: number;
+  id: number;
   weight: number;
   reps: number;
   exercisesId: number;
