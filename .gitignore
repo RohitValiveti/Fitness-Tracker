@@ -5,3 +5,4 @@ __pycache__
 .postman
 .env
 .vscode
+.DS_Store
