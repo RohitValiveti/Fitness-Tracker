@@ -8,6 +8,10 @@ import boto3
 from werkzeug.utils import secure_filename
 import sendgrid
 from sendgrid.helpers.mail import *
+from flask_cors import CORS, cross_origin
+
+app = Flask(__name__)
+CORS(app)
 
 
 app = Flask(__name__)
@@ -115,6 +119,7 @@ def get_create_workouts():
 
 
 @app.route('/workouts/<int:workout_id>/', methods=['GET', 'POST', 'DELETE'])
+@cross_origin(supports_credentials=True)
 def workout(workout_id):
     """
     Handle retrieving, deleting, or updating a single workout.

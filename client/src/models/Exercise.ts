@@ -3,8 +3,15 @@ export type Workout = {
   timeStarted: string;
   timeEnded: string;
   muscleGroup: string;
-  exercises: [Exercise];
+  exercises: [SimpleExercise];
   userId: number;
+};
+
+type SimpleExercise = {
+  id: number;
+  exerciseName: string;
+  muscle: string;
+  workoutId: number;
 };
 
 export type Exercise = {
