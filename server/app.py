@@ -35,6 +35,16 @@ def failure_response(msg, code):
     return json.dumps({"error": msg}), code
 
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers',
+                         'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods',
+                         'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+
+
 def authenticate(request):
     """
     Authenticates a user via their session token.
@@ -422,7 +432,7 @@ def get_user(user_id):
     success, token = extract_token(request)
 
     if not success:
-        return failure_response('Could not extract token.', 400)
+        return failure_response(token, 400)
 
     user = users_dao.get_user_by_session_token(token)
     if user is None or not user.verify_session_token(token):

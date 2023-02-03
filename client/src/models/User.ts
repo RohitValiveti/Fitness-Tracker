@@ -7,7 +7,7 @@ type SimpleUser = {
 
 export type User = {
   id: number;
-  username: string;
+  email: string;
   password: string;
   sessionToken: string;
   updateToken: string;
@@ -15,6 +15,13 @@ export type User = {
   workouts: [Workout];
   friends: [SimpleUser];
   healthFiles: [HealthFile];
+};
+
+export type LoginUser = {
+  id: number;
+  email: string;
+  workouts: [Workout];
+  friends: [SimpleUser];
 };
 
 export type HealthFile = {
