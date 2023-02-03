@@ -4,12 +4,12 @@ import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
-// https://reactrouter.com/en/main/start/tutorial -- Helpful page for routing
+import Landing from "./pages/Landing";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Landing />,
     errorElement: <ErrorPage />,
   },
   {
