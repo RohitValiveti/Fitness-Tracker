@@ -6,19 +6,19 @@ import axios from "axios";
 const Home = () => {
   const { userId } = useParams();
   const [user, setUser] = useState<LoginUser>();
-  const session_token = "9c8afacf221c1ddaecf5b925d564f80b78d6df5f";
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${session_token}`,
-  };
-  
 
   useEffect(() => {
-    axios.get("/users/" + userId, )
+    const session_token = "a91707cf703d148a8a395b9677d5bca316e08876";
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session_token}`,
+    };
+
     axios({
       method: "GET",
-      url: "/users/" + userId,
-      headers: headers,
+      // url: "/users/" + userId,
+      url: "/pub/users/" + userId,
+      // headers: headers,
     })
       .then((response) => {
         const res = response.data;
@@ -44,8 +44,8 @@ const Home = () => {
       <h3>Home Page</h3>
       <br></br>
       email: {user ? user.email : "None"}
-      <br></br>
-      {/* Workouts: {user ? user.workouts : "None"}
+      {/* <br></br>
+      Workouts: {user ? user.workouts : "None"}
       <br></br>
       Friends: {user ? user.friends : "None"}
       <br></br> */}

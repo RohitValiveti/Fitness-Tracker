@@ -12,10 +12,6 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 CORS(app)
-
-
-app = Flask(__name__)
-
 db_filename = "excercises.db"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///%s" % db_filename
@@ -33,16 +29,6 @@ def success_response(data, code=200):
 
 def failure_response(msg, code):
     return json.dumps({"error": msg}), code
-
-
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers',
-                         'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods',
-                         'GET,PUT,POST,DELETE,OPTIONS')
-    return response
 
 
 def authenticate(request):
@@ -118,10 +104,16 @@ def get_create_workouts():
     elif request.method == 'POST':
         body = json.loads(request.data)
         muscle_group = body.get('muscle_group')
-        if muscle_group is None:
-            return failure_response('Please specify muscle group.', 400)
+        user_id = body.get('user_id')
 
-        workout = Workout(muscle_group)
+        if muscle_group is None or user_id is None:
+            return failure_response('Missing Data.', 400)
+
+        user = User.query.filter_by(id=user_id).first()
+        if user is None:
+            return failure_response('User does not exist.', 400)
+
+        workout = Workout(muscle_group, user_id)
         db.session.add(workout)
         db.session.commit()
 
@@ -440,6 +432,15 @@ def get_user(user_id):
 
     return success_response(user.serialize())
 
+@app.route('/pub/users/<int:user_id>/')
+def pub_get_user(user_id):
+    """
+    Get user with specified id. Public Version.
+    """
+    user = User.query.filter_by(id=user_id).first()
+    if user is None:
+        return failure_response('User does not exist', 400)
+    return success_response(user.serialize())
 
 @app.route('/users/friend/<int:friend_id>/', methods=['POST'])
 def friend_user(friend_id):

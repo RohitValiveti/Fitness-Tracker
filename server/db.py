@@ -110,9 +110,10 @@ class Workout(db.Model):
     exercises = db.relationship('Exercise', cascade='delete')
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
 
-    def __init__(self, muscle_group, time_started=datetime.now()) -> None:
+    def __init__(self, muscle_group, user_id, time_started=datetime.now()) -> None:
         self.muscle_group = muscle_group
         self.time_started = time_started
+        self.user_id = user_id
 
     def serialize(self):
         """
